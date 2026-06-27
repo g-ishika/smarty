@@ -9,7 +9,7 @@
 
 ## Overview
 
-SMARTY is a lightweight, intelligent document assistant designed to help users analyze and query their documents.
+SMARTY is a lightweight, intelligent document assistant designed to help users analyze and query their documents. Built with a Retrieval-Augmented Generation (RAG) approach, it enables seamless interaction with uploaded documents through a clean web interface.
 
 ## Features
 
@@ -25,12 +25,12 @@ SMARTY is a lightweight, intelligent document assistant designed to help users a
 
 The system follows a modular RAG pipeline:
 
-1. **Document Ingestion** - Loads and parses documents from various formats
-2. **Text Chunking** - Splits documents into manageable, overlapping chunks
-3. **Vector Indexing** - Stores document chunks with their embeddings for fast retrieval
-4. **Query Processing** - Converts user questions into search queries
-5. **Retrieval** - Finds the most relevant document chunks
-6. **Response Generation** - Constructs answers based on retrieved context
+1. Document Ingestion - Loads and parses documents from various formats
+2. Text Chunking - Splits documents into manageable, overlapping chunks
+3. Vector Indexing - Stores document chunks with their embeddings for fast retrieval
+4. Query Processing - Converts user questions into search queries
+5. Retrieval - Finds the most relevant document chunks
+6. Response Generation - Constructs answers based on retrieved context
 
 ## Quick Start
 
@@ -43,21 +43,26 @@ The system follows a modular RAG pipeline:
 
 Clone the repository:
 
-```bash
+```
 git clone https://github.com/g-ishika/smarty.git
 cd smarty
 ```
 
 Create and activate a virtual environment:
 
-```bash
+```
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate
+```
+
+On Windows:
+```
+venv\Scripts\activate
 ```
 
 Install dependencies:
 
-```bash
+```
 pip install -r requirements.txt
 ```
 
@@ -65,7 +70,7 @@ pip install -r requirements.txt
 
 #### Web Interface
 
-```bash
+```
 python flask_app.py
 ```
 
@@ -73,7 +78,7 @@ Navigate to `http://localhost:5000` in your browser.
 
 #### Command Line Interface
 
-```bash
+```
 python run.py
 ```
 
@@ -81,50 +86,49 @@ python run.py
 
 ```
 smarty/
-├── smarty/                 # Core package
+├── smarty/
 │   ├── __init__.py
-│   ├── assistant.py        # Main orchestrator
-│   ├── config.py           # Configuration
-│   ├── ingestor.py         # Document loading
-│   ├── chunker.py          # Text chunking
-│   ├── vector_store.py     # Search indexing
-│   └── generator.py        # Response generation
-├── knowledge_base/         # User documents
-├── data/                   # Index data
-├── tests/                  # Unit tests
-├── flask_app.py            # Web interface
-├── run.py                  # CLI interface
-├── requirements.txt        # Dependencies
-└── README.md               # Documentation
+│   ├── assistant.py
+│   ├── config.py
+│   ├── ingestor.py
+│   ├── chunker.py
+│   ├── vector_store.py
+│   └── generator.py
+├── knowledge_base/
+├── data/
+├── tests/
+├── flask_app.py
+├── run.py
+├── requirements.txt
+└── README.md
 ```
 
 ## Configuration
 
 Edit `smarty/config.py` to customize:
 
-```python
-chunk_size: int = 1000       # Text chunk size
-chunk_overlap: int = 200     # Overlap between chunks
-top_k: int = 5               # Number of results to return
+```
+chunk_size: int = 1000
+chunk_overlap: int = 200
+top_k: int = 5
 ```
 
 ## Usage Examples
 
 ### Uploading Documents
 
-1. Click the upload icon in the web interface
+1. Click the uploading icon in the web interface
 2. Select your PDF, DOCX, or TXT files
 3. Wait for automatic indexing
 
 ### Asking Questions
 
-```
 Question: What are the AML compliance requirements?
 
-Response: Found 5 relevant passages:
-[1] From: AML_Regulation.pdf
-The Anti-Money Laundering regulations require financial institutions to implement customer due diligence, transaction monitoring, and suspicious activity reporting procedures...
-```
+Response: Found 5 relevant passages.
+
+From: AML_Regulation.pdf
+The Anti-Money Laundering regulations require financial institutions to implement customer due diligence, transaction monitoring, and suspicious activity reporting procedures.
 
 ## Dependencies
 
@@ -139,16 +143,16 @@ See `requirements.txt` for complete list.
 
 ### Running Tests
 
-```bash
+```
 python -m pytest tests/
 ```
 
 ### Contributing
 
 1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/your-feature`
-3. Commit your changes: `git commit -m 'Add some feature'`
-4. Push to the branch: `git push origin feature/your-feature`
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
 5. Open a pull request
 
 ## License
@@ -164,8 +168,16 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Contact
 
 Project Link: [https://github.com/g-ishika/smarty](https://github.com/g-ishika/smarty)
+```
+
+
 
 ---
 
-Made with Python
+## **If It Still Shows `**`**
 
+Take a screenshot of what you see and share it. But 99% of the time, this fixes it.
+
+---
+
+**Copy and paste the README above and push - it will work!** 🚀
