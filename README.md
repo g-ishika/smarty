@@ -1,3 +1,4 @@
+
 ```markdown
 # SMARTY - Intelligent Document Assistant
 
@@ -8,7 +9,7 @@
 
 ## Overview
 
-SMARTY is a lightweight, intelligent document assistant designed to help users analyze and query their documents. Built with a Retrieval-Augmented Generation (RAG) approach, it enables seamless interaction with uploaded documents through a clean web interface.
+SMARTY is a lightweight, intelligent document assistant designed to help users analyze and query their documents.
 
 ## Features
 
@@ -104,7 +105,7 @@ Edit `smarty/config.py` to customize:
 ```python
 chunk_size: int = 1000       # Text chunk size
 chunk_overlap: int = 200     # Overlap between chunks
-top_k: int = 5               # Number of return result
+top_k: int = 5               # Number of results to return
 ```
 
 ## Usage Examples
@@ -167,6 +168,4 @@ Project Link: [https://github.com/g-ishika/smarty](https://github.com/g-ishika/s
 ---
 
 Made with Python
-```
-
 
