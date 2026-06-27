@@ -1,4 +1,5 @@
 
+
 ```markdown
 # SMARTY - Intelligent Document Assistant
 
@@ -25,12 +26,12 @@ SMARTY is a lightweight, intelligent document assistant designed to help users a
 
 The system follows a modular RAG pipeline:
 
-1. Document Ingestion - Loads and parses documents from various formats
-2. Text Chunking - Splits documents into manageable, overlapping chunks
-3. Vector Indexing - Stores document chunks with their embeddings for fast retrieval
-4. Query Processing - Converts user questions into search queries
-5. Retrieval - Finds the most relevant document chunks
-6. Response Generation - Constructs answers based on retrieved context
+1. **Document Ingestion** - Loads and parses documents from various formats
+2. **Text Chunking** - Splits documents into manageable, overlapping chunks
+3. **Vector Indexing** - Stores document chunks with their embeddings for fast retrieval
+4. **Query Processing** - Converts user questions into search queries
+5. **Retrieval** - Finds the most relevant document chunks
+6. **Response Generation** - Constructs answers based on retrieved context
 
 ## Quick Start
 
@@ -43,26 +44,27 @@ The system follows a modular RAG pipeline:
 
 Clone the repository:
 
-```
+```bash
 git clone https://github.com/g-ishika/smarty.git
 cd smarty
 ```
 
 Create and activate a virtual environment:
 
-```
+```bash
 python -m venv venv
 source venv/bin/activate
 ```
 
 On Windows:
-```
+
+```bash
 venv\Scripts\activate
 ```
 
 Install dependencies:
 
-```
+```bash
 pip install -r requirements.txt
 ```
 
@@ -70,7 +72,7 @@ pip install -r requirements.txt
 
 #### Web Interface
 
-```
+```bash
 python flask_app.py
 ```
 
@@ -78,7 +80,7 @@ Navigate to `http://localhost:5000` in your browser.
 
 #### Command Line Interface
 
-```
+```bash
 python run.py
 ```
 
@@ -107,7 +109,7 @@ smarty/
 
 Edit `smarty/config.py` to customize:
 
-```
+```python
 chunk_size: int = 1000
 chunk_overlap: int = 200
 top_k: int = 5
@@ -123,11 +125,12 @@ top_k: int = 5
 
 ### Asking Questions
 
-Question: What are the AML compliance requirements?
+**Question:** What are the AML compliance requirements?
 
-Response: Found 5 relevant passages.
+**Response:** Found 5 relevant passages.
 
-From: AML_Regulation.pdf
+**From:** AML_Regulation.pdf
+
 The Anti-Money Laundering regulations require financial institutions to implement customer due diligence, transaction monitoring, and suspicious activity reporting procedures.
 
 ## Dependencies
@@ -143,16 +146,16 @@ See `requirements.txt` for complete list.
 
 ### Running Tests
 
-```
+```bash
 python -m pytest tests/
 ```
 
 ### Contributing
 
 1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
+2. Create a feature branch: `git checkout -b feature/your-feature`
+3. Commit your changes: `git commit -m 'Add some feature'`
+4. Push to the branch: `git push origin feature/your-feature`
 5. Open a pull request
 
 ## License
@@ -168,16 +171,11 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Contact
 
 Project Link: [https://github.com/g-ishika/smarty](https://github.com/g-ishika/smarty)
+
+---
+
+Made with Python
 ```
 
-
-
 ---
 
-## **If It Still Shows `**`**
-
-Take a screenshot of what you see and share it. But 99% of the time, this fixes it.
-
----
-
-**Copy and paste the README above and push - it will work!** 🚀
