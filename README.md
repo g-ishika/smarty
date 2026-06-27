@@ -1,11 +1,6 @@
 ```markdown
 # SMARTY - Intelligent Document Assistant
 
-[![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://python.org)
-[![Flask](https://img.shields.io/badge/Flask-2.0%2B-green.svg)](https://flask.palletsprojects.com)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
-
 ## Overview
 
 SMARTY is a lightweight, intelligent document assistant designed to help users analyze and query their documents. Built with a Retrieval-Augmented Generation (RAG) approach, it enables seamless interaction with uploaded documents through a clean web interface.
