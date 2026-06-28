@@ -1,172 +1,198 @@
+# README.md
+
 ```markdown
-# SMARTY - Intelligent Document Assistant
+# Document Q&A System
 
-[![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://python.org)
-[![Flask](https://img.shields.io/badge/Flask-2.0%2B-green.svg)](https://flask.palletsprojects.com)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
-
-## Overview
-
-SMARTY is a lightweight, intelligent document assistant designed to help users analyze and query their documents. Built with a Retrieval-Augmented Generation (RAG) approach, it enables seamless interaction with uploaded documents through a clean web interface.
+A production-ready Retrieval Augmented Generation (RAG) system for querying documents using state-of-the-art language models. Upload PDFs, DOCX, TXT, or Markdown files and ask questions about their content.
 
 ## Features
 
-- Multi-format document support: PDF, DOCX, TXT, MD
-- Intelligent keyword-based search and retrieval
-- Interactive question-answering interface
-- Source attribution for every answer
-- Modern, responsive web interface
-- Lightweight architecture with minimal dependencies
-- Fast document indexing and retrieval
+- Document upload and text extraction (PDF, DOCX, TXT, MD)
+- Semantic search using FAISS vector database
+- Context-aware responses using Flan-T5 language model
+- Source attribution for generated answers
+- RESTful API with Swagger documentation
+- Streamlit web interface
+- Docker support for containerized deployment
 
 ## Architecture
 
-The system follows a modular RAG pipeline:
+The system consists of three main components:
 
-1. **Document Ingestion** - Loads and parses documents from various formats
-2. **Text Chunking** - Splits documents into manageable, overlapping chunks
-3. **Vector Indexing** - Stores document chunks with their embeddings for fast retrieval
-4. **Query Processing** - Converts user questions into search queries
-5. **Retrieval** - Finds the most relevant document chunks
-6. **Response Generation** - Constructs answers based on retrieved context
+1. **Document Processing Pipeline**: Extracts and chunks text from uploaded documents
+2. **Vector Store**: FAISS index with sentence transformer embeddings for semantic retrieval
+3. **Language Model**: Flan-T5-small for generating answers based on retrieved context
 
-## Quick Start
-
-### Prerequisites
-
-- Python 3.8 or higher
-- pip package manager
-
-### Installation
-
-Clone the repository:
-
-```bash
-git clone https://github.com/g-ishika/smarty.git
-cd smarty
+```
+User Query → Embedding → FAISS Search → Context Retrieval → LLM Generation → Response
 ```
 
-Create and activate a virtual environment:
+## Tech Stack
 
+- **Backend**: FastAPI, Python 3.11
+- **Frontend**: Streamlit
+- **Vector Database**: FAISS
+- **Embeddings**: Sentence Transformers (all-MiniLM-L6-v2)
+- **Language Model**: Google Flan-T5-small
+- **Orchestration**: LangChain
+- **Containerization**: Docker
+
+## Prerequisites
+
+- Python 3.11 or higher
+- pip
+- (Optional) Docker and Docker Compose
+
+## Installation
+
+### Local Development
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd rag-system
+```
+
+2. Create and activate a virtual environment:
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-Install dependencies:
-
+3. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-### Running the Application
-
-#### Web Interface
-
+4. Create the required directories:
 ```bash
-python flask_app.py
+mkdir -p uploads data
 ```
 
-Navigate to `http://localhost:5000` in your browser.
-
-#### Command Line Interface
+### Docker Deployment
 
 ```bash
-python run.py
+docker-compose up -d --build
+```
+
+## Running the Application
+
+### Start the Backend Server
+
+```bash
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+The API documentation will be available at: http://localhost:8000/docs
+
+### Start the Frontend Interface
+
+Open a new terminal and run:
+
+```bash
+streamlit run frontend/streamlit_app.py --server.port=8501
+```
+
+Access the web interface at: http://localhost:8501
+
+## API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | / | Root endpoint |
+| GET | /health | Health check |
+| POST | /upload | Upload a document |
+| POST | /query | Submit a question |
+| GET | /documents | List uploaded documents |
+| DELETE | /documents/{doc_id} | Delete a document |
+
+### Example API Usage
+
+**Upload a Document:**
+```bash
+curl -X POST -F "file=@document.pdf" http://localhost:8000/upload
+```
+
+**Query the System:**
+```bash
+curl -X POST -H "Content-Type: application/json" \
+  -d '{"query": "What is the main topic?"}' \
+  http://localhost:8000/query
+```
+
+## Configuration
+
+Create a `.env` file in the project root with the following options:
+
+```env
+# Application
+APP_NAME=RAG-System
+APP_ENV=development
+DEBUG=True
+
+# Backend
+BACKEND_URL=http://localhost:8000
+
+# Model Settings
+EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
+LLM_MODEL=google/flan-t5-small
+CHUNK_SIZE=500
+CHUNK_OVERLAP=50
+TOP_K=3
+MAX_NEW_TOKENS=200
+TEMPERATURE=0.1
 ```
 
 ## Project Structure
 
 ```
-smarty/
-├── smarty/                 # Core package
-│   ├── __init__.py
-│   ├── assistant.py        # Main orchestrator
-│   ├── config.py           # Configuration
-│   ├── ingestor.py         # Document loading
-│   ├── chunker.py          # Text chunking
-│   ├── vector_store.py     # Search indexing
-│   └── generator.py        # Response generation
-├── knowledge_base/         # User documents
-├── data/                   # Index data
-├── tests/                  # Unit tests
-├── flask_app.py            # Web interface
-├── run.py                  # CLI interface
-├── requirements.txt        # Dependencies
-└── README.md               # Documentation
+rag-system/
+├── app/
+│   └── main.py              # FastAPI application
+├── frontend/
+│   └── streamlit_app.py     # Streamlit web interface
+├── uploads/                 # Uploaded document storage
+├── data/                    # Vector index storage
+├── requirements.txt         # Python dependencies
+├── Dockerfile               # Backend container definition
+├── docker-compose.yml       # Multi-container orchestration
+├── .env.example             # Environment variables template
+└── README.md                # Documentation
 ```
 
-## Configuration
+## Performance Considerations
 
-Edit `smarty/config.py` to customize:
+- First query after document upload may be slower as models load into memory
+- Processing time depends on document size and CPU performance
+- Recommended for documents up to 100 pages for optimal performance
+- The system runs entirely on CPU; GPU support is available with minor modifications
 
-```python
-chunk_size: int = 1000       # Text chunk size
-chunk_overlap: int = 200     # Overlap between chunks
-top_k: int = 5               # Number of return result
-```
+## Troubleshooting
 
-## Usage Examples
+### Common Issues
 
-### Uploading Documents
+1. **ModuleNotFoundError**: Ensure all dependencies are installed:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-1. Click the upload icon in the web interface
-2. Select your PDF, DOCX, or TXT files
-3. Wait for automatic indexing
+2. **Upload fails**: Check that the `uploads/` directory exists and is writable
 
-### Asking Questions
+3. **Slow responses**: Consider reducing `TOP_K` or `MAX_NEW_TOKENS` in configuration
 
-```
-Question: What are the AML compliance requirements?
-
-Response: Found 5 relevant passages:
-[1] From: AML_Regulation.pdf
-The Anti-Money Laundering regulations require financial institutions to implement customer due diligence, transaction monitoring, and suspicious activity reporting procedures...
-```
-
-## Dependencies
-
-- Flask - Web framework
-- PyPDF2 - PDF parsing
-- python-docx - DOCX parsing
-- BeautifulSoup4 - HTML parsing
-
-See `requirements.txt` for complete list.
-
-## Development
-
-### Running Tests
-
-```bash
-python -m pytest tests/
-```
-
-### Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/your-feature`
-3. Commit your changes: `git commit -m 'Add some feature'`
-4. Push to the branch: `git push origin feature/your-feature`
-5. Open a pull request
+4. **Memory issues**: Use `flan-t5-small` instead of larger models
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+MIT License
 
-## Acknowledgments
+## Contributing
 
-- Built with Flask for web interface
-- PDF processing with PyPDF2
-- DOCX processing with python-docx
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Submit a pull request
 
 ## Contact
 
-Project Link: [https://github.com/g-ishika/smarty](https://github.com/g-ishika/smarty)
-
----
-
-Made with Python
-```
-
-
+Email- ishikagupta2595@gmail.com
