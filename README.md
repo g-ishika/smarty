@@ -49,7 +49,7 @@ User Query → Embedding → FAISS Search → Context Retrieval → LLM Generati
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone <https://github.com/g-ishika/smarty/tree/main>
 cd rag-system
 ```
 
